@@ -1,0 +1,39 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Deployment {
+  id             String   @id @default(cuid())
+  appName        String
+  environment    String   @default("production")
+  status         String   @default("queued")
+  commitSha      String?
+  commitMessage  String?
+  branch         String   @default("main")
+  workflowRunUrl String?
+  triggeredBy    String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@index([createdAt])
+  @@index([status])
+}
+
+model SecurityEvent {
+  id          String   @id @default(cuid())
+  severity    String   @default("info")
+  category    String
+  title       String
+  description String
+  status      String   @default("observed")
+  source      String   @default("demo")
+  createdAt   DateTime @default(now())
+
+  @@index([createdAt])
+  @@index([severity])
+}
