@@ -31,9 +31,8 @@ jobs:
       - name: Send status to SecureDeploy Dashboard
         if: always()
         run: |
-          # Bypassing Cloudflare by resolving the domain directly to the raw server IP
-          curl -X POST "https://lifah-gcp.zeroonedevs.in/api/deployments" \
-          --resolve "lifah-gcp.zeroonedevs.in:443:8.231.117.125" \
+          # Make sure to set DASHBOARD_URL and DASHBOARD_API_TOKEN in your GitHub Secrets
+          curl -X POST "${{ secrets.DASHBOARD_URL }}/api/deployments" \
           -H "Authorization: Bearer ${{ secrets.DASHBOARD_API_TOKEN }}" \
           -H "Content-Type: application/json" \
           -d '{
