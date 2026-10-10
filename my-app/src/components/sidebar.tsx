@@ -6,7 +6,6 @@ const links = [
   { href: "/deployments", label: "Deployments", icon: Boxes },
   { href: "/pipelines", label: "Pipeline runs", icon: GitBranch },
   { href: "/security", label: "Security center", icon: ShieldCheck },
-  { href: "/audit", label: "Audit events", icon: ScrollText },
 ];
 
 export function Sidebar({ active }: { active: string }) {
