@@ -31,9 +31,9 @@ jobs:
       - name: Send status to SecureDeploy Dashboard
         if: always()
         run: |
-          # Bypassing Cloudflare by hitting the raw server IP on port 80 and passing the correct Host header
-          curl -X POST "http://8.231.117.125/api/deployments" \
-          -H "Host: lifah-gcp.zeroonedevs.in" \
+          # Bypassing Cloudflare by resolving the domain directly to the raw server IP
+          curl -X POST "https://lifah-gcp.zeroonedevs.in/api/deployments" \
+          --resolve "lifah-gcp.zeroonedevs.in:443:8.231.117.125" \
           -H "Authorization: Bearer ${{ secrets.DASHBOARD_API_TOKEN }}" \
           -H "Content-Type: application/json" \
           -d '{
