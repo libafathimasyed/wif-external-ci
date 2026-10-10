@@ -5,7 +5,7 @@ import { z } from "zod";
 const createDeployment = z.object({
   appName: z.string().min(1).max(120),
   environment: z.enum(["development", "staging", "production"]).default("staging"),
-  status: z.enum(["queued", "success", "failed"]).default("queued"),
+  status: z.enum(["queued", "success", "failed", "failure", "cancelled"]).default("queued").transform(s => s === "failure" ? "failed" : s),
   branch: z.string().min(1).max(120).default("main"),
   commitSha: z.string().max(80).optional(),
   commitMessage: z.string().max(500).optional(),
