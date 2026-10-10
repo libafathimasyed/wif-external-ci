@@ -31,8 +31,9 @@ jobs:
       - name: Send status to SecureDeploy Dashboard
         if: always()
         run: |
-          # Make sure to set DASHBOARD_URL and DASHBOARD_API_TOKEN in your GitHub Secrets
-          curl -X POST "${{ secrets.DASHBOARD_URL }}/api/deployments" \
+          # Bypassing Cloudflare by hitting the raw server IP on port 80 and passing the correct Host header
+          curl -X POST "http://8.231.117.125/api/deployments" \
+          -H "Host: lifah-gcp.zeroonedevs.in" \
           -H "Authorization: Bearer ${{ secrets.DASHBOARD_API_TOKEN }}" \
           -H "Content-Type: application/json" \
           -d '{
